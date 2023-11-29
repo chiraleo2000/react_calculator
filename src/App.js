@@ -1,23 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import BasicCalculator from './components/BasicCalculator';
+import ParabolicCalculator from './components/ParabolicCalculator';
+import AreaCalculator from './components/AreaCalculator';
+import VolumeCalculator from './components/VolumeCalculator';
 
 function App() {
+  const [activeTab, setActiveTab] = useState('basic');
+
+  const renderCalculator = () => {
+    switch (activeTab) {
+      case 'basic':
+        return <BasicCalculator />;
+      case 'parabolic':
+        return <ParabolicCalculator />;
+      case 'area':
+        return <AreaCalculator />;
+      case 'volume':
+        return <VolumeCalculator />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Calculator App</h1>
+      <div className="tabs">
+        <button onClick={() => setActiveTab('basic')}>Basic Calculator</button>
+        <button onClick={() => setActiveTab('parabolic')}>Parabolic Calculator</button>
+        <button onClick={() => setActiveTab('area')}>Area Calculator</button>
+        <button onClick={() => setActiveTab('volume')}>Volume Calculator</button>
+      </div>
+      <div className="calculator-content">
+        {renderCalculator()}
+      </div>
     </div>
   );
 }
